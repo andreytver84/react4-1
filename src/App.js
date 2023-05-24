@@ -1,23 +1,33 @@
-import logo from './logo.svg';
 import './App.css';
+import InputColor from './InputColor';
+import OutputColor from './OutputColor';
+import { useState } from 'react';
 
 function App() {
+  
+  const app = document.querySelector('.App');    
+  const [newBgColor, setNewBgColor] = useState('#f0f0f0');
+  const [newBgDiv, setNewBgDiv] = useState(''); // не сообразил как делать фон под вывод значения цвета чуть отличный от введённого цвета пока что
+  const [color, setColor] = useState('#f0f0f0');
+  const inputColorHandler = (inputColor) => {
+    setColor(inputColor);
+    if (app && /[0-9A-Fa-f]{6}/g.test(inputColor)) {
+      setNewBgColor(app.style.background);
+      console.log(newBgColor);
+    } else {
+      setNewBgColor('error');
+    }
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="App" style={
+      {
+        background: color
+      }
+    }>
+      <div className='ColorEnter' >
+        <InputColor onSaveColor={inputColorHandler} />
+        <OutputColor text={newBgColor} divColorBg={newBgDiv}/>
+      </div>
     </div>
   );
 }
