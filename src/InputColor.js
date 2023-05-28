@@ -5,8 +5,8 @@ function InputColor(props) {
     const [input, setInput] = useState('');
     const changeColorHandler = (e) => {
         setInput(e.target.value);
-        if (input.length > 6) {
-            props.onSaveColor(input);
+        if (input.length === 6) {
+            props.onSaveColor(e.target.value);
         }
     }
     return (
